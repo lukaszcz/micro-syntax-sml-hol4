@@ -140,13 +140,56 @@ rules:
                 end: "\\*\\)"
                 rules:
                     - todo: "(TODO|FIXME|XXX|HACK|NOTE):?"
+            - constant.string:
+                start: "\""
+                end: "\""
+                skip: "\\\\."
+                rules:
+                    - constant.specialChar: "\\\\."
+            # Quotation regions inside termination proofs — backtick
+            - constant.string:
+                start: "`"
+                end: "`"
+                rules:
+                    - constant: "\\b(T|F|EMPTY|UNIV)\\b"
+                    - statement: "\\b(case|of|if|then|else|let|in)\\b"
+                    - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
+                    - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
+                    - symbol.operator: "[=<>~+\\-*/^|]"
+                    - constant.number: "~?[0-9]+"
+            # Quotation regions — unicode single quotes
+            - constant.string:
+                start: "‘"
+                end: "’"
+                rules:
+                    - constant: "\\b(T|F|EMPTY|UNIV)\\b"
+                    - statement: "\\b(case|of|if|then|else|let|in)\\b"
+                    - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
+                    - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
+                    - symbol.operator: "[=<>~+\\-*/^|]"
+                    - constant.number: "~?[0-9]+"
+            # Quotation regions — unicode double quotes
+            - constant.string:
+                start: "“"
+                end: "”"
+                rules:
+                    - constant: "\\b(T|F|EMPTY|UNIV)\\b"
+                    - statement: "\\b(case|of|if|then|else|let|in)\\b"
+                    - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
+                    - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
+                    - symbol.operator: "[=<>~+\\-*/^|]"
+                    - constant.number: "~?[0-9]+"
             - error: "\\bcheat\\b"
             - statement: "(>>|>-|>~|\\\\\\\\)"
             - statement: "\\b(THEN1?|by|suffices_by)\\b"
-            - identifier: "\\b(wf_rel_tac|simp|rw|fs|gvs|decide_tac|CONV_TAC|CASE_TAC|metis_tac|irule|drule|strip_tac)\\b"
-            - statement: "\\b(val|fun|let|local|in|end|fn|if|then|else|case|of)\\b"
+            - identifier: "\\b(ho_match_mp_tac|simp|asm_simp|full_simp|asm_simp_tac|full_simp_tac|simp_tac|rw|fs|rfs|gs|gvs|sg|gns|imp_res_tac|res_tac|metis_tac|decide_tac|asm_rewrite_tac|once_rewrite_tac|once_asm_rewrite_tac|rpt|Cases|Cases_on|Induct|Induct_on|recInduct|completeInduct_on|pop_assum|mp_tac|drule|drule_then|drule_at|drule_at_then|irule|irule_at|mp_then|strip_tac|assume_tac|strip_assume_tac|disch_then|disch_tac|qx_choose_then|qx_gen_tac|gen_tac|rewrite_tac|wf_rel_tac|CASE_TAC|TOP_CASE_TAC|PURE_CASE_TAC|PURE_TOP_CASE_TAC|CONV_TAC|first_x_assum|last_x_assum|qexists_tac|qspec_then|qspecl_then|rename1|ntac|rev_drule|goal_assum|first_assum|last_assum|qpat_x_assum|qpat_assum|qabbrev_tac|Abbr|qunabbrev_tac|AP_TERM_TAC|AP_THM_TAC|SUBGOAL_THEN|MATCH_MP_TAC|EXISTS_TAC|FULL_SIMP_TAC|ASM_SIMP_TAC|REWRITE_TAC|ONCE_REWRITE_TAC|STRIP_TAC|DISCH_TAC|DISCH_THEN|UNDISCH_TAC|CONJ_TAC|EQ_TAC|DISJ1_TAC|DISJ2_TAC|RW_TAC|SRW_TAC)\\b"
+            - statement: "\\b(val|fun|let|local|in|end|fn|if|then|else|case|of|raise|handle|andalso|orelse|and|op)\\b"
+            - preproc: "\\b(open|structure)\\b"
+            - constant.bool: "\\b(true|false)\\b"
+            - constant: "\\b(nil|NONE|SOME)\\b"
+            - symbol.operator: "\\b(div|mod|o)\\b"
             - constant.number: "~?[0-9]+"
-            - symbol.operator: "(=>|->|:=|::|<>)"
+            - symbol.operator: "(=>|->|:=|::|<>|>=|<=)"
             - symbol.operator: "[=<>@^!#~+\\-*/|]"
 
     # Datatype: ... End
@@ -166,6 +209,20 @@ rules:
         end: "^End\\b"
         rules:
             - identifier.class: "^(Co)?Inductive\\b"
+            - constant.number: "~?[0-9]+"
+            - constant: "\\b(T|F|EMPTY|UNIV)\\b"
+            - statement: "\\b(case|of|if|then|else|let|in)\\b"
+            - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
+            - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
+            - symbol.operator: "[=<>~+\\-*/^|]"
+            - identifier: "\\b[A-Z][A-Za-z0-9_']*\\b"
+
+    # Quote ... End (raw quotation block)
+    - special:
+        start: "^Quote\\b"
+        end: "^End\\b"
+        rules:
+            - identifier.class: "^Quote\\b"
             - constant.number: "~?[0-9]+"
             - constant: "\\b(T|F|EMPTY|UNIV)\\b"
             - statement: "\\b(case|of|if|then|else|let|in)\\b"

@@ -1,10 +1,13 @@
 (*
  * fooScript.sml — HOL4 syntax highlighting test file
+ * Uses modern HOL4 Trindemossen-2 syntax
  *)
 
-open HolKernel Parse boolLib bossLib;
+Theory foo
 
-val _ = new_theory "foo";
+Libs boolLib bossLib
+
+Ancestors arithmetic list
 
 (* === Definition with HOL term body === *)
 Definition double_def:
@@ -49,6 +52,11 @@ Inductive even:
   (!n. even n ==> even (n + 2))
 End
 
+(* === CoInductive === *)
+CoInductive stream_bisim:
+  !s1 s2. R s1 s2 ==> stream_bisim R s1 s2
+End
+
 (* === Overload and Type === *)
 Overload "myop" = ``$+``
 Type mynum = ``:num``
@@ -57,7 +65,7 @@ Type mynum = ``:num``
 val t = ``x + 1``;
 val ty = ``:num -> bool``;
 val t2 = ‘x + y’;
-val t3 = “p /\\ q”;
+val t3 = “p /\ q”;
 
 (* === Unicode HOL symbols === *)
 Theorem unicode_demo:
@@ -76,7 +84,7 @@ Theorem tactic_demo:
 Proof
   rpt strip_tac >>
   irule LESS_EQ_TRANS >>
-  qexists_tac `y` >>
+  qexists_tac ‘y’ >>
   fs[] >>
   decide_tac
 QED
@@ -103,4 +111,7 @@ val goal = ``^(concl th) ==> Q``;
 val _ = ``if T then F else T``;
 val _ = ``EMPTY UNION UNIV``;
 
-val _ = export_theory();
+(* === Quote block === *)
+Quote
+  foo_grm : Grammar.grammar
+End

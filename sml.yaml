@@ -84,5 +84,8 @@ rules:
     # Type variables: 'a, ''a (equality type var)
     - type: "'{1,2}[A-Za-z_][A-Za-z0-9_']*"
 
+    # Module paths: Structure.name
+    - identifier.class: "[A-Z][A-Za-z0-9_']*\\."
+
     # Brackets
     - symbol.brackets: "[(){}]|\\[|\\]"
