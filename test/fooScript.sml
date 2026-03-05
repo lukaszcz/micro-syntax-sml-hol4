@@ -87,6 +87,11 @@ Definition unicode_def:
   myconj p q ⇔ p ∧ q ∧ ¬(p ≠ q)
 End
 
+(* === Definition with attributes in header === *)
+Definition get_value_def[simp]:
+  get_value x = x
+End
+
 (* === Tactics showcase === *)
 Theorem tactic_demo:
   !x y:num. x <= y ==> x <= y + 1

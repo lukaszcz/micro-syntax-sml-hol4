@@ -34,7 +34,13 @@ rules:
     # HOL4 script keywords (line-based, stable when opening mid-file)
     # ============================================================
     - statement: "^(Theory|Libs|Ancestors|Definition|Theorem|Triviality|Proof|QED|Termination|Datatype|Inductive|CoInductive|Quote|Overload|Type|End)\\b"
-    - identifier.class: "\\s+[A-Za-z][A-Za-z0-9_']*:\\s*$"
+    # Keep delimiters out of class-name highlighting in headers.
+    - symbol.brackets: "[\\[\\]]"
+    - symbol: ":\\s*$"
+    # Header names: Definition/Theorem/... name:
+    - identifier.class: "\\s+[A-Za-z][A-Za-z0-9_']*\\s*:\\s*$"
+    # Header names with attributes: Definition name[attrs]:
+    - identifier.class: "\\s+[A-Za-z][A-Za-z0-9_']*\\s*\\["
 
     # ============================================================
     # HOL4 quotation regions (outside script forms, in ML context)
