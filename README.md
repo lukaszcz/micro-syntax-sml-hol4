@@ -44,8 +44,8 @@ Everything in SML, plus:
 - **Modern syntax**: `Theory`, `Libs`, `Ancestors` headers
 - **Quotation regions**: backtick (`` ` ``), unicode single (`'...'`), unicode double (`\u201C...\u201D`) with inner HOL term highlighting
 - **Unicode symbols**: `\u2200 \u2203 \u03BB \u2227 \u2228 \u00AC \u21D2 \u21D4 \u2260` highlighted as operators
-- **Tactics**: 70+ tactics including `simp`, `rw`, `fs`, `gvs`, `metis_tac`, `Cases_on`, `Induct_on`, `strip_tac`, `irule`, `drule`, `qexists_tac`, and more
-- **Tacticals**: `>>`, `>-`, `>~`, `\\\\`, `THEN`, `THEN1`, `by`, `suffices_by`
+- **Tactics**: convention-aware matching from HOL4 docs (`*_TAC`, `*_tac`, `*_THEN`, `*_LT`, etc.) plus irregular short forms like `rw`, `fs`, `gvs`, `drule`, `irule`, `Cases_on`, `Induct_on`, `qexists_tac`
+- **Tacticals**: symbolic (`>>`, `>>-`, `>>>`, `>|`, `>-`, `>~`, `\\\\`) and word tacticals (`THEN`, `THEN1`, `THENL`, `ORELSE`, `REPEAT`, `TRY`, `VALIDATE`, `by`, `suffices_by`)
 - **`cheat`** highlighted as error
 
 ## Test Files

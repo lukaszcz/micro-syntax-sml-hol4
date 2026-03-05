@@ -105,6 +105,13 @@ Proof
   CONJ_TAC THEN simp[]
 QED
 
+(* === Uppercase core tactics === *)
+Theorem accept_tac_demo:
+  T
+Proof
+  ACCEPT_TAC TRUTH
+QED
+
 (* === cheat should be highlighted as error === *)
 Theorem cheated:
   F
