@@ -22,14 +22,14 @@ cp sml.yaml hol4.yaml ~/.config/micro/syntax/
 |---|---|
 | `*.sml`, `*.sig`, `*.fun`, `*.cm` | SML |
 | `*Script.sml` | HOL4 |
-| `*.sml` with `Theory`/`Theorem`/`Definition`/... in first lines | HOL4 |
+| `*.sml` with first line matching `Theory`/`Theorem`/`Definition`/... | HOL4 |
 
 ## SML Coverage
 
 - All SML'97 keywords (control flow, declarations, modules, fixity)
 - Boolean operators (`andalso`, `orelse`) and word operators (`div`, `mod`, `not`, `o`, `abs`)
 - Numeric literals: decimal, hex (`0xFF`), word (`0w42`, `0wx1F`), real (`3.14`, `1.5e10`), negative (`~7`)
-- String literals with escape sequences (`\n`, `\^A`, `\065`, `\u0041`)
+- String literals with escape sequences (`\n`, `\^A`, `\065`)
 - Character literals (`#"A"`, `#"\n"`)
 - Type variables (`'a`, `''a`)
 - Built-in types, constants, and exception names
@@ -42,9 +42,9 @@ Everything in SML, plus:
 
 - **Script forms**: `Definition...End`, `Theorem...Proof...QED`, `Triviality...Proof...QED`, `Datatype:...End`, `Inductive...End`, `CoInductive...End`, `Quote...End`, `Overload`, `Type`
 - **Modern syntax**: `Theory`, `Libs`, `Ancestors` headers
-- **Quotation regions**: backtick (`` ` ``), unicode single (`'...'`), unicode double (`\u201C...\u201D`) with inner HOL term highlighting
-- **Unicode symbols**: `\u2200 \u2203 \u03BB \u2227 \u2228 \u00AC \u21D2 \u21D4 \u2260` highlighted as operators
-- **Tactics**: convention-aware matching from HOL4 docs (`*_TAC`, `*_tac`, `*_THEN`, `*_LT`, etc.) plus irregular short forms like `rw`, `fs`, `gvs`, `drule`, `irule`, `Cases_on`, `Induct_on`, `qexists_tac`
+- **Quotation regions**: backtick (`` ` ``), unicode single (`‘...’`), unicode double (`“...”`) with inner HOL term highlighting
+- **Unicode symbols**: `∀ ∃ λ ∧ ∨ ¬ ⇒ ⇔ ≠` highlighted as operators
+- **Tactics**: convention-aware matching (`*_TAC`, `*_tac`, `*_THEN`, `*_LT`, etc.) plus irregular short forms like `rw`, `fs`, `gvs`, `drule`, `irule`, `Cases_on`, `Induct_on`, `qexists_tac`; includes uppercase tactics like `ACCEPT_TAC` and apostrophe-ending names like `Rewr'`
 - **Tacticals**: symbolic (`>>`, `>>-`, `>>>`, `>|`, `>-`, `>~`, `\\\\`) and word tacticals (`THEN`, `THEN1`, `THENL`, `ORELSE`, `REPEAT`, `TRY`, `VALIDATE`, `by`, `suffices_by`)
 - **`cheat`** highlighted as error
 
@@ -55,4 +55,4 @@ Everything in SML, plus:
 
 ## License
 
-Public domain.
+MIT. See `LICENSE`.
