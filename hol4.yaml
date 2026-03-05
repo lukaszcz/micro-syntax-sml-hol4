@@ -34,6 +34,7 @@ rules:
     # HOL4 script keywords (line-based, stable when opening mid-file)
     # ============================================================
     - statement: "^(Theory|Libs|Ancestors|Definition|Theorem|Triviality|Proof|QED|Termination|Datatype|Inductive|CoInductive|Quote|Overload|Type|End)\\b"
+    - identifier.class: "\\s+[A-Za-z][A-Za-z0-9_']*:\\s*$"
 
     # ============================================================
     # HOL4 quotation regions (outside script forms, in ML context)
@@ -47,8 +48,9 @@ rules:
             - constant: "\\b(T|F|EMPTY|UNIV)\\b"
             - statement: "\\b(case|of|if|then|else|let|in)\\b"
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-            - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-            - symbol.operator: "[=<>~+\\-*/^|]"
+            - symbol.operator: "(<₊|>₊|≤₊|≥₊)"
+            - symbol.operator: "[∀∃λ∧∨¬⇒⇔⇎≠⊢＆≤≥−∅⊆∩∪∈∉‖⊕≪≫⋙⇆⇄←→⟵⟶⇐⟸⟹↦↤⟼⟻↩↪]"
+            - symbol.operator: "[=<>~+\\-*/^|.]"
             - constant.number: "~?\\b[0-9]+\\b"
             - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
@@ -60,8 +62,9 @@ rules:
             - constant: "\\b(T|F|EMPTY|UNIV)\\b"
             - statement: "\\b(case|of|if|then|else|let|in)\\b"
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-            - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-            - symbol.operator: "[=<>~+\\-*/^|]"
+            - symbol.operator: "(<₊|>₊|≤₊|≥₊)"
+            - symbol.operator: "[∀∃λ∧∨¬⇒⇔⇎≠⊢＆≤≥−∅⊆∩∪∈∉‖⊕≪≫⋙⇆⇄←→⟵⟶⇐⟸⟹↦↤⟼⟻↩↪]"
+            - symbol.operator: "[=<>~+\\-*/^|.]"
             - constant.number: "~?\\b[0-9]+\\b"
             - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
@@ -73,8 +76,9 @@ rules:
             - constant: "\\b(T|F|EMPTY|UNIV)\\b"
             - statement: "\\b(case|of|if|then|else|let|in)\\b"
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-            - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-            - symbol.operator: "[=<>~+\\-*/^|]"
+            - symbol.operator: "(<₊|>₊|≤₊|≥₊)"
+            - symbol.operator: "[∀∃λ∧∨¬⇒⇔⇎≠⊢＆≤≥−∅⊆∩∪∈∉‖⊕≪≫⋙⇆⇄←→⟵⟶⇐⟸⟹↦↤⟼⟻↩↪]"
+            - symbol.operator: "[=<>~+\\-*/^|.]"
             - constant.number: "~?\\b[0-9]+\\b"
             - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
@@ -128,11 +132,18 @@ rules:
     # Word operators
     - symbol.operator: "\\b(div|mod|not|o|abs)\\b"
 
-    # Multi-char operators
+    # HOL4 multi-char operators (must come before single-char operators)
+    - symbol.operator: "(/\\\\|\\\\/|==>|<=>)"
+
+    # SML multi-char operators
     - symbol.operator: "(=>|->|:=|::|:>|<>|>=|<=|\\.\\.\\.|;;)"
 
+    # Unicode HOL operators and operator families from UnicodeChars
+    - symbol.operator: "(<₊|>₊|≤₊|≥₊)"
+    - symbol.operator: "[∀∃λ∧∨¬⇒⇔⇎≠⊢＆≤≥−∅⊆∩∪∈∉‖⊕≪≫⋙⇆⇄←→⟵⟶⇐⟸⟹↦↤⟼⟻↩↪]"
+
     # Single-char operators
-    - symbol.operator: "[=<>@^!#~+\\-*/|]"
+    - symbol.operator: "[=<>@^!#~+\\-*/|.]"
 
     # Semicolon and comma
     - symbol: "[;,]"
