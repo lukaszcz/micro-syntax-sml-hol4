@@ -33,13 +33,18 @@ rules:
     # ============================================================
     # HOL4 script keywords (line-based, stable when opening mid-file)
     # ============================================================
-    # Header lines with named declarations: highlight only the declared name.
-    - default:
-        start: "^(Definition|Theorem|Triviality|Inductive|CoInductive)\\b"
-        end: ":\\s*$"
+    # Named declaration headers:
+    #   Definition get_value_def[simp]:
+    #   Theorem foo:
+    #   Theorem bar = ...;
+    # Start at the keyword (colored as statement), stop at ':' or '='.
+    - statement:
+        start: "^(Definition|Theorem|Triviality|Datatype|Inductive|CoInductive)\\b"
+        end: "[:=]"
         rules:
-            - statement: "^(Definition|Theorem|Triviality|Inductive|CoInductive)\\b"
+            - statement: "\\b(Definition|Theorem|Triviality|Datatype|Inductive|CoInductive)\\b"
             - identifier.class: "\\s+[A-Za-z][A-Za-z0-9_']*"
+            - preproc: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
             - symbol.brackets: "[\\[\\]]"
 
     - statement: "^(Theory|Libs|Ancestors|Definition|Theorem|Triviality|Proof|QED|Termination|Datatype|Inductive|CoInductive|Quote|Overload|Type|End)\\b"
