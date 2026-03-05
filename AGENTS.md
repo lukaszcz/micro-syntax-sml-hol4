@@ -61,8 +61,12 @@ Uses `filename: "Script\\.sml$"` plus `signature` regex matching HOL4 keywords i
 - `docs/quotations.md` — HOL4 quotation syntax reference
 - `docs/hol4-grammar.json` — TextMate grammar used as reference
 - `docs/sml.vim` — Vim SML syntax reference
-- `docs/plans/` — Original design and implementation plans
 
-## License
+## Commit Guidelines
 
-MIT (see `LICENSE`).
+- Commit format: `type: subject` in imperative lowercase (e.g., `feat: add tactic highlighting`).
+- Keep commits focused; avoid mixing unrelated changes.
+
+## Instructions
+
+- When finished, test by running `micro` (unsandboxed) on relevant files in `test/` and capturing terminal output. ALWAYS verify syntax highlighting by capturing `micro` terminal output on test files.

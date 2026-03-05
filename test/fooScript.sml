@@ -88,7 +88,7 @@ Definition unicode_def:
 End
 
 (* === Definition with attributes in header === *)
-Definition get_value_def[simp]:
+Definition get_value_def[simp,local]:
   get_value x = x
 End
 
