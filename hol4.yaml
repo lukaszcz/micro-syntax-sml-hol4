@@ -33,14 +33,16 @@ rules:
     # ============================================================
     # HOL4 script keywords (line-based, stable when opening mid-file)
     # ============================================================
+    # Header lines with named declarations: highlight only the declared name.
+    - default:
+        start: "^(Definition|Theorem|Triviality|Inductive|CoInductive)\\b"
+        end: ":\\s*$"
+        rules:
+            - statement: "^(Definition|Theorem|Triviality|Inductive|CoInductive)\\b"
+            - identifier.class: "\\s+[A-Za-z][A-Za-z0-9_']*"
+            - symbol.brackets: "[\\[\\]]"
+
     - statement: "^(Theory|Libs|Ancestors|Definition|Theorem|Triviality|Proof|QED|Termination|Datatype|Inductive|CoInductive|Quote|Overload|Type|End)\\b"
-    # Keep delimiters out of class-name highlighting in headers.
-    - symbol.brackets: "[\\[\\]]"
-    - symbol: ":\\s*$"
-    # Header names: Definition/Theorem/... name:
-    - identifier.class: "\\s+[A-Za-z][A-Za-z0-9_']*\\s*:\\s*$"
-    # Header names with attributes: Definition name[attrs]:
-    - identifier.class: "\\s+[A-Za-z][A-Za-z0-9_']*\\s*\\["
 
     # ============================================================
     # HOL4 quotation regions (outside script forms, in ML context)
@@ -129,12 +131,6 @@ rules:
     # Boolean constants
     - constant.bool: "\\b(true|false)\\b"
 
-    # Language constants
-    - constant: "\\b(nil|NONE|SOME|LESS|EQUAL|GREATER)\\b"
-
-    # Built-in exception names
-    - constant: "\\b(Bind|Chr|Div|Domain|Empty|Match|Option|Overflow|Size|Span|Subscript|Fail|Io)\\b"
-
     # Built-in types
     - type: "\\b(int|real|char|string|bool|unit|exn|word|list|option|ref|array|vector|order|substring)\\b"
 
@@ -152,10 +148,10 @@ rules:
     - symbol.operator: "[∀∃λ∧∨¬⇒⇔⇎≠⊢＆≤≥−∅⊆∩∪∈∉‖⊕≪≫⋙⇆⇄←→⟵⟶⇐⟸⟹↦↤⟼⟻↩↪]"
 
     # Single-char operators
-    - symbol.operator: "[=<>@^!#~+\\-*/|.]"
+    - symbol.operator: "[=<>@^!#~+\\-*/|]"
 
-    # Semicolon and comma
-    - symbol: "[;,]"
+    # Semicolon, comma and dot
+    - symbol: "[;,.]"
 
     # Wildcard
     - symbol: "\\b_\\b"
