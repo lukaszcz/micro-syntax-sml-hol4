@@ -69,17 +69,17 @@ rules:
 
     # Numeric literals — order matters: most specific first
     # Hex integers
-    - constant.number: "~?0x[0-9A-Fa-f]+"
+    - constant.number: "~?\\b0x[0-9A-Fa-f]+\\b"
     # Word hex literals
-    - constant.number: "0wx[0-9A-Fa-f]+"
+    - constant.number: "\\b0wx[0-9A-Fa-f]+\\b"
     # Word literals
-    - constant.number: "0w[0-9]+"
+    - constant.number: "\\b0w[0-9]+\\b"
     # Real with exponent
-    - constant.number: "~?[0-9]+(\\.[0-9]+)?[eE]~?[0-9]+"
+    - constant.number: "~?\\b[0-9]+(\\.[0-9]+)?[eE]~?[0-9]+\\b"
     # Real
-    - constant.number: "~?[0-9]+\\.[0-9]+"
+    - constant.number: "~?\\b[0-9]+\\.[0-9]+\\b"
     # Decimal integers
-    - constant.number: "~?[0-9]+"
+    - constant.number: "~?\\b[0-9]+\\b"
 
     # Type variables: 'a, ''a (equality type var)
     - type: "'{1,2}[A-Za-z_][A-Za-z0-9_']*"

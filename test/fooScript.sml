@@ -67,6 +67,15 @@ val ty = ``:num -> bool``;
 val t2 = ‘x + y’;
 val t3 = “p /\ q”;
 
+(* === Identifier casing and digits in HOL terms === *)
+Theorem ident_color_demo:
+  !X x v1 v2. X /\ x ==> (v1 = v2)
+Proof
+  rw[]
+QED
+
+val _ = ``!X x v1 v2. X /\ x ==> (v1 = v2)``;
+
 (* === Unicode HOL symbols === *)
 Theorem unicode_demo:
   ∀x y. x ∧ y ⇒ y ∨ x

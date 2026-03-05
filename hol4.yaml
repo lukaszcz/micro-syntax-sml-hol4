@@ -46,7 +46,7 @@ rules:
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
-            - identifier: "\\b[A-Z][A-Za-z0-9_']*\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # Theorem/Triviality name[attrs]: ... Proof
     - special:
@@ -60,7 +60,7 @@ rules:
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
-            - identifier: "\\b[A-Z][A-Za-z0-9_']*\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # Proof ... QED (contains ML + tactics)
     - special:
@@ -89,6 +89,7 @@ rules:
                     - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
                     - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
                     - symbol.operator: "[=<>~+\\-*/^|]"
+                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
                     - constant.number: "~?[0-9]+"
             # Quotation regions — unicode single quotes
             - constant.string:
@@ -100,6 +101,7 @@ rules:
                     - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
                     - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
                     - symbol.operator: "[=<>~+\\-*/^|]"
+                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
                     - constant.number: "~?[0-9]+"
             # Quotation regions — unicode double quotes
             - constant.string:
@@ -111,6 +113,7 @@ rules:
                     - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
                     - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
                     - symbol.operator: "[=<>~+\\-*/^|]"
+                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
                     - constant.number: "~?[0-9]+"
             # cheat — always highlight as error
             - error: "\\bcheat\\b"
@@ -125,6 +128,7 @@ rules:
             - constant.bool: "\\b(true|false)\\b"
             - constant: "\\b(nil|NONE|SOME)\\b"
             - symbol.operator: "\\b(div|mod|o)\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
             - constant.number: "~?[0-9]+"
             - symbol.operator: "(=>|->|:=|::|<>|>=|<=)"
             - symbol.operator: "[=<>@^!#~+\\-*/|]"
@@ -156,6 +160,7 @@ rules:
                     - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
                     - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
                     - symbol.operator: "[=<>~+\\-*/^|]"
+                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
                     - constant.number: "~?[0-9]+"
             # Quotation regions — unicode single quotes
             - constant.string:
@@ -167,6 +172,7 @@ rules:
                     - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
                     - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
                     - symbol.operator: "[=<>~+\\-*/^|]"
+                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
                     - constant.number: "~?[0-9]+"
             # Quotation regions — unicode double quotes
             - constant.string:
@@ -178,6 +184,7 @@ rules:
                     - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
                     - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
                     - symbol.operator: "[=<>~+\\-*/^|]"
+                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
                     - constant.number: "~?[0-9]+"
             - error: "\\bcheat\\b"
             - statement: "(>>|>-|>~|\\\\\\\\)"
@@ -188,6 +195,7 @@ rules:
             - constant.bool: "\\b(true|false)\\b"
             - constant: "\\b(nil|NONE|SOME)\\b"
             - symbol.operator: "\\b(div|mod|o)\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
             - constant.number: "~?[0-9]+"
             - symbol.operator: "(=>|->|:=|::|<>|>=|<=)"
             - symbol.operator: "[=<>@^!#~+\\-*/|]"
@@ -201,7 +209,7 @@ rules:
             - constant.number: "~?[0-9]+"
             - type: "\\b(num|bool|string|char|int|real|word|unit)\\b"
             - symbol.operator: "[=|;]"
-            - identifier: "\\b[A-Z][A-Za-z0-9_']*\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # Inductive/CoInductive name: ... End
     - special:
@@ -215,7 +223,7 @@ rules:
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
-            - identifier: "\\b[A-Z][A-Za-z0-9_']*\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # Quote ... End (raw quotation block)
     - special:
@@ -229,7 +237,7 @@ rules:
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
-            - identifier: "\\b[A-Z][A-Za-z0-9_']*\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # Theorem/Triviality/Type/Overload assignment form (single-line pattern)
     - special: "^(Theorem|Triviality|Type|Overload)\\b"
@@ -255,7 +263,7 @@ rules:
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
             - constant.number: "~?[0-9]+"
-            - identifier: "\\b[A-Z][A-Za-z0-9_']*\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # Unicode single-quote quotations (LEFT/RIGHT SINGLE QUOTATION MARK)
     - constant.string:
@@ -268,7 +276,7 @@ rules:
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
             - constant.number: "~?[0-9]+"
-            - identifier: "\\b[A-Z][A-Za-z0-9_']*\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # Unicode double-quote quotations (LEFT/RIGHT DOUBLE QUOTATION MARK)
     - constant.string:
@@ -281,7 +289,7 @@ rules:
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
             - constant.number: "~?[0-9]+"
-            - identifier: "\\b[A-Z][A-Za-z0-9_']*\\b"
+            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # ============================================================
     # cheat in ML context — always error
@@ -344,6 +352,9 @@ rules:
 
     # Wildcard
     - symbol: "\\b_\\b"
+
+    # Identifiers (keeps names like v1 or X2 in one token)
+    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # ============================================================
     # Numeric literals
