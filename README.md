@@ -21,8 +21,8 @@ cp sml.yaml hol4.yaml ~/.config/micro/syntax/
 | File pattern | Syntax |
 |---|---|
 | `*.sml`, `*.sig`, `*.fun`, `*.cm` | SML |
-| `*Script.sml` | HOL4 |
-| `*.sml` with first line matching `Theory`/`Theorem`/`Definition`/... | HOL4 |
+| `*Script.sml` **and** first line matching `Theory`/`Theorem`/`Definition`/`Datatype`/`Inductive`/`CoInductive` | HOL4 |
+| `*Script.sml` without that first-line match | SML |
 
 ## SML Coverage
 
