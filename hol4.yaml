@@ -45,7 +45,7 @@ rules:
             - statement: "\\b(Definition|Theorem|Triviality|Datatype|Inductive|CoInductive)\\b"
             - identifier.class: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
             - symbol.brackets: "[\\[\\]]"
-            - preproc: "\\[[A-Za-z][A-Za-z0-9_']*\\]"
+            - preproc: "\\[(?:\\s*[A-Za-z][A-Za-z0-9_']*\\s*)(?:,\\s*[A-Za-z][A-Za-z0-9_']*\\s*)*\\]"
 
     - statement: "^(Theory|Libs|Ancestors|Definition|Theorem|Triviality|Proof|QED|Termination|Datatype|Inductive|CoInductive|Quote|Overload|Type|End)\\b"
 
