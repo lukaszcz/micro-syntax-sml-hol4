@@ -31,222 +31,9 @@ rules:
     - constant.string: "#\"(\\\\.|[^\"\\\\])\""
 
     # ============================================================
-    # HOL4 script form regions
+    # HOL4 script keywords (line-based, stable when opening mid-file)
     # ============================================================
-
-    # Definition name[attrs]: ... End/Termination
-    - special:
-        start: "^Definition\\b"
-        end: "^(End|Termination)\\b"
-        rules:
-            - identifier.class: "^Definition\\b"
-            - constant.number: "~?[0-9]+"
-            - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-            - statement: "\\b(case|of|if|then|else|let|in)\\b"
-            - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-            - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-            - symbol.operator: "[=<>~+\\-*/^|]"
-            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-
-    # Theorem/Triviality name[attrs]: ... Proof
-    - special:
-        start: "^(Theorem|Triviality)\\b"
-        end: "^Proof\\b"
-        rules:
-            - identifier.class: "^(Theorem|Triviality)\\b"
-            - constant.number: "~?[0-9]+"
-            - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-            - statement: "\\b(case|of|if|then|else|let|in)\\b"
-            - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-            - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-            - symbol.operator: "[=<>~+\\-*/^|]"
-            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-
-    # Proof ... QED (contains ML + tactics)
-    - special:
-        start: "^Proof\\b"
-        end: "^QED\\b"
-        rules:
-            - identifier.class: "^(Proof|QED)\\b"
-            - comment:
-                start: "\\(\\*"
-                end: "\\*\\)"
-                rules:
-                    - todo: "(TODO|FIXME|XXX|HACK|NOTE):?"
-            - constant.string:
-                start: "\""
-                end: "\""
-                skip: "\\\\."
-                rules:
-                    - constant.specialChar: "\\\\."
-            # Quotation regions inside proofs — backtick
-            - constant.string:
-                start: "`"
-                end: "`"
-                rules:
-                    - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-                    - statement: "\\b(case|of|if|then|else|let|in)\\b"
-                    - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-                    - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-                    - symbol.operator: "[=<>~+\\-*/^|]"
-                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-                    - constant.number: "~?[0-9]+"
-            # Quotation regions — unicode single quotes
-            - constant.string:
-                start: "‘"
-                end: "’"
-                rules:
-                    - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-                    - statement: "\\b(case|of|if|then|else|let|in)\\b"
-                    - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-                    - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-                    - symbol.operator: "[=<>~+\\-*/^|]"
-                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-                    - constant.number: "~?[0-9]+"
-            # Quotation regions — unicode double quotes
-            - constant.string:
-                start: "“"
-                end: "”"
-                rules:
-                    - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-                    - statement: "\\b(case|of|if|then|else|let|in)\\b"
-                    - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-                    - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-                    - symbol.operator: "[=<>~+\\-*/^|]"
-                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-                    - constant.number: "~?[0-9]+"
-            # cheat — always highlight as error
-            - error: "\\bcheat\\b"
-            # Tacticals
-            - statement: "(>>|>-|>~|\\\\\\\\)"
-            - statement: "\\b(THEN1?|by|suffices_by)\\b"
-            # Tactics
-            - identifier: "\\b(ho_match_mp_tac|simp|asm_simp|full_simp|asm_simp_tac|full_simp_tac|simp_tac|rw|fs|rfs|gs|gvs|sg|gns|imp_res_tac|res_tac|metis_tac|decide_tac|asm_rewrite_tac|once_rewrite_tac|once_asm_rewrite_tac|rpt|Cases|Cases_on|Induct|Induct_on|recInduct|completeInduct_on|pop_assum|mp_tac|drule|drule_then|drule_at|drule_at_then|irule|irule_at|mp_then|strip_tac|assume_tac|strip_assume_tac|disch_then|disch_tac|qx_choose_then|qx_gen_tac|gen_tac|rewrite_tac|wf_rel_tac|CASE_TAC|TOP_CASE_TAC|PURE_CASE_TAC|PURE_TOP_CASE_TAC|CONV_TAC|first_x_assum|last_x_assum|qexists_tac|qspec_then|qspecl_then|rename1|ntac|rev_drule|goal_assum|first_assum|last_assum|qpat_x_assum|qpat_assum|qabbrev_tac|Abbr|qunabbrev_tac|AP_TERM_TAC|AP_THM_TAC|SUBGOAL_THEN|MATCH_MP_TAC|EXISTS_TAC|FULL_SIMP_TAC|ASM_SIMP_TAC|REWRITE_TAC|ONCE_REWRITE_TAC|STRIP_TAC|DISCH_TAC|DISCH_THEN|UNDISCH_TAC|CONJ_TAC|EQ_TAC|DISJ1_TAC|DISJ2_TAC|RW_TAC|SRW_TAC)\\b"
-            # ML keywords inside proofs
-            - statement: "\\b(val|fun|let|local|in|end|fn|if|then|else|case|of|raise|handle|andalso|orelse|and|op)\\b"
-            - preproc: "\\b(open|structure)\\b"
-            - constant.bool: "\\b(true|false)\\b"
-            - constant: "\\b(nil|NONE|SOME)\\b"
-            - symbol.operator: "\\b(div|mod|o)\\b"
-            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-            - constant.number: "~?[0-9]+"
-            - symbol.operator: "(=>|->|:=|::|<>|>=|<=)"
-            - symbol.operator: "[=<>@^!#~+\\-*/|]"
-
-    # Termination ... End (contains ML + tactics, same as Proof...QED)
-    - special:
-        start: "^Termination\\b"
-        end: "^End\\b"
-        rules:
-            - identifier.class: "^(Termination|End)\\b"
-            - comment:
-                start: "\\(\\*"
-                end: "\\*\\)"
-                rules:
-                    - todo: "(TODO|FIXME|XXX|HACK|NOTE):?"
-            - constant.string:
-                start: "\""
-                end: "\""
-                skip: "\\\\."
-                rules:
-                    - constant.specialChar: "\\\\."
-            # Quotation regions inside termination proofs — backtick
-            - constant.string:
-                start: "`"
-                end: "`"
-                rules:
-                    - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-                    - statement: "\\b(case|of|if|then|else|let|in)\\b"
-                    - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-                    - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-                    - symbol.operator: "[=<>~+\\-*/^|]"
-                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-                    - constant.number: "~?[0-9]+"
-            # Quotation regions — unicode single quotes
-            - constant.string:
-                start: "‘"
-                end: "’"
-                rules:
-                    - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-                    - statement: "\\b(case|of|if|then|else|let|in)\\b"
-                    - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-                    - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-                    - symbol.operator: "[=<>~+\\-*/^|]"
-                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-                    - constant.number: "~?[0-9]+"
-            # Quotation regions — unicode double quotes
-            - constant.string:
-                start: "“"
-                end: "”"
-                rules:
-                    - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-                    - statement: "\\b(case|of|if|then|else|let|in)\\b"
-                    - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-                    - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-                    - symbol.operator: "[=<>~+\\-*/^|]"
-                    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-                    - constant.number: "~?[0-9]+"
-            - error: "\\bcheat\\b"
-            - statement: "(>>|>-|>~|\\\\\\\\)"
-            - statement: "\\b(THEN1?|by|suffices_by)\\b"
-            - identifier: "\\b(ho_match_mp_tac|simp|asm_simp|full_simp|asm_simp_tac|full_simp_tac|simp_tac|rw|fs|rfs|gs|gvs|sg|gns|imp_res_tac|res_tac|metis_tac|decide_tac|asm_rewrite_tac|once_rewrite_tac|once_asm_rewrite_tac|rpt|Cases|Cases_on|Induct|Induct_on|recInduct|completeInduct_on|pop_assum|mp_tac|drule|drule_then|drule_at|drule_at_then|irule|irule_at|mp_then|strip_tac|assume_tac|strip_assume_tac|disch_then|disch_tac|qx_choose_then|qx_gen_tac|gen_tac|rewrite_tac|wf_rel_tac|CASE_TAC|TOP_CASE_TAC|PURE_CASE_TAC|PURE_TOP_CASE_TAC|CONV_TAC|first_x_assum|last_x_assum|qexists_tac|qspec_then|qspecl_then|rename1|ntac|rev_drule|goal_assum|first_assum|last_assum|qpat_x_assum|qpat_assum|qabbrev_tac|Abbr|qunabbrev_tac|AP_TERM_TAC|AP_THM_TAC|SUBGOAL_THEN|MATCH_MP_TAC|EXISTS_TAC|FULL_SIMP_TAC|ASM_SIMP_TAC|REWRITE_TAC|ONCE_REWRITE_TAC|STRIP_TAC|DISCH_TAC|DISCH_THEN|UNDISCH_TAC|CONJ_TAC|EQ_TAC|DISJ1_TAC|DISJ2_TAC|RW_TAC|SRW_TAC)\\b"
-            - statement: "\\b(val|fun|let|local|in|end|fn|if|then|else|case|of|raise|handle|andalso|orelse|and|op)\\b"
-            - preproc: "\\b(open|structure)\\b"
-            - constant.bool: "\\b(true|false)\\b"
-            - constant: "\\b(nil|NONE|SOME)\\b"
-            - symbol.operator: "\\b(div|mod|o)\\b"
-            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-            - constant.number: "~?[0-9]+"
-            - symbol.operator: "(=>|->|:=|::|<>|>=|<=)"
-            - symbol.operator: "[=<>@^!#~+\\-*/|]"
-
-    # Datatype: ... End
-    - special:
-        start: "^Datatype\\s*:"
-        end: "^End\\b"
-        rules:
-            - identifier.class: "^Datatype\\b"
-            - constant.number: "~?[0-9]+"
-            - type: "\\b(num|bool|string|char|int|real|word|unit)\\b"
-            - symbol.operator: "[=|;]"
-            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-
-    # Inductive/CoInductive name: ... End
-    - special:
-        start: "^(Co)?Inductive\\b"
-        end: "^End\\b"
-        rules:
-            - identifier.class: "^(Co)?Inductive\\b"
-            - constant.number: "~?[0-9]+"
-            - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-            - statement: "\\b(case|of|if|then|else|let|in)\\b"
-            - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-            - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-            - symbol.operator: "[=<>~+\\-*/^|]"
-            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-
-    # Quote ... End (raw quotation block)
-    - special:
-        start: "^Quote\\b"
-        end: "^End\\b"
-        rules:
-            - identifier.class: "^Quote\\b"
-            - constant.number: "~?[0-9]+"
-            - constant: "\\b(T|F|EMPTY|UNIV)\\b"
-            - statement: "\\b(case|of|if|then|else|let|in)\\b"
-            - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
-            - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
-            - symbol.operator: "[=<>~+\\-*/^|]"
-            - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-
-    # Theorem/Triviality/Type/Overload assignment form (single-line pattern)
-    - special: "^(Theorem|Triviality|Type|Overload)\\b"
-
-    # ============================================================
-    # HOL4 top-level script keywords (pattern)
-    # ============================================================
-    - special: "^(Theory|Libs|Ancestors)\\b"
-    - special: "^(End|QED|Proof|Termination)\\b"
+    - statement: "^(Theory|Libs|Ancestors|Definition|Theorem|Triviality|Proof|QED|Termination|Datatype|Inductive|CoInductive|Quote|Overload|Type|End)\\b"
 
     # ============================================================
     # HOL4 quotation regions (outside script forms, in ML context)
@@ -262,7 +49,7 @@ rules:
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
-            - constant.number: "~?[0-9]+"
+            - constant.number: "~?\\b[0-9]+\\b"
             - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # Unicode single-quote quotations (LEFT/RIGHT SINGLE QUOTATION MARK)
@@ -275,7 +62,7 @@ rules:
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
-            - constant.number: "~?[0-9]+"
+            - constant.number: "~?\\b[0-9]+\\b"
             - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # Unicode double-quote quotations (LEFT/RIGHT DOUBLE QUOTATION MARK)
@@ -288,7 +75,7 @@ rules:
             - symbol.operator: "(/\\\\|\\\\/|==>|<=>|[!?])"
             - symbol.operator: "[∀∃λ∧∨¬⇒⇔≠]"
             - symbol.operator: "[=<>~+\\-*/^|]"
-            - constant.number: "~?[0-9]+"
+            - constant.number: "~?\\b[0-9]+\\b"
             - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
 
     # ============================================================
@@ -305,7 +92,7 @@ rules:
     # ============================================================
     # Tactics (in ML context outside proof regions)
     # ============================================================
-    - identifier: "\\b(ho_match_mp_tac|simp|asm_simp|full_simp|asm_simp_tac|full_simp_tac|simp_tac|rw|fs|rfs|gs|gvs|sg|gns|imp_res_tac|res_tac|metis_tac|decide_tac|asm_rewrite_tac|once_rewrite_tac|once_asm_rewrite_tac|rpt|Cases|Cases_on|Induct|Induct_on|recInduct|completeInduct_on|pop_assum|mp_tac|drule|drule_then|drule_at|drule_at_then|irule|irule_at|mp_then|strip_tac|assume_tac|strip_assume_tac|disch_then|disch_tac|qx_choose_then|qx_gen_tac|gen_tac|rewrite_tac|wf_rel_tac|CASE_TAC|TOP_CASE_TAC|PURE_CASE_TAC|PURE_TOP_CASE_TAC|CONV_TAC|first_x_assum|last_x_assum|qexists_tac|qspec_then|qspecl_then|rename1|ntac|rev_drule|goal_assum|first_assum|last_assum|qpat_x_assum|qpat_assum|qabbrev_tac|Abbr|qunabbrev_tac|AP_TERM_TAC|AP_THM_TAC|SUBGOAL_THEN|MATCH_MP_TAC|EXISTS_TAC|FULL_SIMP_TAC|ASM_SIMP_TAC|REWRITE_TAC|ONCE_REWRITE_TAC|STRIP_TAC|DISCH_TAC|DISCH_THEN|UNDISCH_TAC|CONJ_TAC|EQ_TAC|DISJ1_TAC|DISJ2_TAC|RW_TAC|SRW_TAC)\\b"
+    - preproc: "\\b(ho_match_mp_tac|simp|asm_simp|full_simp|asm_simp_tac|full_simp_tac|simp_tac|rw|fs|rfs|gs|gvs|sg|gns|imp_res_tac|res_tac|metis_tac|decide_tac|asm_rewrite_tac|once_rewrite_tac|once_asm_rewrite_tac|rpt|Cases|Cases_on|Induct|Induct_on|recInduct|completeInduct_on|pop_assum|mp_tac|drule|drule_then|drule_at|drule_at_then|irule|irule_at|mp_then|strip_tac|assume_tac|strip_assume_tac|disch_then|disch_tac|qx_choose_then|qx_gen_tac|gen_tac|rewrite_tac|wf_rel_tac|CASE_TAC|TOP_CASE_TAC|PURE_CASE_TAC|PURE_TOP_CASE_TAC|CONV_TAC|first_x_assum|last_x_assum|qexists_tac|qspec_then|qspecl_then|rename1|ntac|rev_drule|goal_assum|first_assum|last_assum|qpat_x_assum|qpat_assum|qabbrev_tac|Abbr|qunabbrev_tac|AP_TERM_TAC|AP_THM_TAC|SUBGOAL_THEN|MATCH_MP_TAC|EXISTS_TAC|FULL_SIMP_TAC|ASM_SIMP_TAC|REWRITE_TAC|ONCE_REWRITE_TAC|STRIP_TAC|DISCH_TAC|DISCH_THEN|UNDISCH_TAC|CONJ_TAC|EQ_TAC|DISJ1_TAC|DISJ2_TAC|RW_TAC|SRW_TAC)\\b"
 
     # ============================================================
     # SML keywords (same as sml.yaml)
@@ -353,18 +140,15 @@ rules:
     # Wildcard
     - symbol: "\\b_\\b"
 
-    # Identifiers (keeps names like v1 or X2 in one token)
-    - identifier: "\\b[A-Za-z][A-Za-z0-9_']*\\b"
-
     # ============================================================
     # Numeric literals
     # ============================================================
-    - constant.number: "~?0x[0-9A-Fa-f]+"
-    - constant.number: "0wx[0-9A-Fa-f]+"
-    - constant.number: "0w[0-9]+"
-    - constant.number: "~?[0-9]+(\\.[0-9]+)?[eE]~?[0-9]+"
-    - constant.number: "~?[0-9]+\\.[0-9]+"
-    - constant.number: "~?[0-9]+"
+    - constant.number: "~?\\b0x[0-9A-Fa-f]+\\b"
+    - constant.number: "\\b0wx[0-9A-Fa-f]+\\b"
+    - constant.number: "\\b0w[0-9]+\\b"
+    - constant.number: "~?\\b[0-9]+(\\.[0-9]+)?[eE]~?[0-9]+\\b"
+    - constant.number: "~?\\b[0-9]+\\.[0-9]+\\b"
+    - constant.number: "~?\\b[0-9]+\\b"
 
     # Type variables
     - type: "'{1,2}[A-Za-z_][A-Za-z0-9_']*"
