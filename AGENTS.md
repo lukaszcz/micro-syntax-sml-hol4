@@ -19,8 +19,8 @@ cp sml.yaml hol4.yaml ~/.config/micro/syntax/
 
 ```sh
 # Test by opening sample files in micro
-micro -config-dir dir test/sample.sml       # verify SML highlighting
-micro -config-dir dir test/fooScript.sml    # verify HOL4 highlighting
+micro -config-dir tmp_dir test/sample.sml       # verify SML highlighting
+micro -config-dir tmp_dir test/fooScript.sml    # verify HOL4 highlighting
 # Optional: validate YAML syntax
 ruby -ryaml -e "YAML.load_file('sml.yaml'); YAML.load_file('hol4.yaml')"
 ```
