@@ -9,11 +9,17 @@ Syntax highlighting for **SML'97** and **HOL4** (Trindemossen-2) in the [micro e
 
 ## Installation
 
-Copy the syntax files to micro's user syntax directory:
+Install with [`just`](https://github.com/casey/just):
 
 ```sh
-mkdir -p ~/.config/micro/syntax
-cp sml.yaml hol4.yaml ~/.config/micro/syntax/
+just install
+```
+
+Equivalent manual commands:
+
+```sh
+mkdir -p "$HOME/.config/micro/syntax"
+cp sml.yaml hol4.yaml "$HOME/.config/micro/syntax/"
 ```
 
 ## File Detection
